@@ -1,25 +1,46 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { connect } from 'react-redux';
+import Deck from './components/Deck';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.Component {
+
+  constructor(props) {
+    super(props);
+  }
+
+  onclick(action) {
+    this.props.dispatch({
+      type: action,
+    })
+  }
+
+  render() {
+    return (
+      <div className="wrapper">
+        {/* <button onClick={() => this.onclick("NEW CARD")}>New Card</button>
+        <button onClick={() => this.onclick("CLEAR")}>Clear Cards</button>
+        <Deck></Deck> */}
+      </div>
+    )
+  }
+
 }
 
-export default App;
+let mapDispatchToProps = function(dispatch, props) {
+  return {
+      dispatch: dispatch,
+  }
+}
+
+let mapStateToProps = function(state, props) {
+  return {
+    faceUp: state.faceUp,
+    faceDown: state.faceDown,
+    selected: state.selected,
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(App)
