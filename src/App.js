@@ -1,46 +1,26 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import Deck from './components/Deck';
+import Rules from './components/Rules';
+import Game from './components/Game';
+import NavBar from './components/NavBar';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
-class App extends React.Component {
+export default class App extends React.Component {
 
   constructor(props) {
     super(props);
   }
 
-  onclick(action) {
-    this.props.dispatch({
-      type: action,
-    })
-  }
-
   render() {
     return (
-      <div className="wrapper">
-        {/* <button onClick={() => this.onclick("NEW CARD")}>New Card</button>
-        <button onClick={() => this.onclick("CLEAR")}>Clear Cards</button>
-        <Deck></Deck> */}
-      </div>
+      <BrowserRouter>
+        <div>
+          <NavBar/>
+          <Switch>
+            <Route path="/game" component={Game}/>
+            <Route path="/rules" component={Rules}/>
+          </Switch>
+        </div> 
+      </BrowserRouter>
     )
   }
-
 }
-
-let mapDispatchToProps = function(dispatch, props) {
-  return {
-      dispatch: dispatch,
-  }
-}
-
-let mapStateToProps = function(state, props) {
-  return {
-    faceUp: state.faceUp,
-    faceDown: state.faceDown,
-    selected: state.selected,
-  }
-}
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(App)
