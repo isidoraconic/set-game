@@ -7,6 +7,7 @@ import '../style/Deck.css';
 class Deck extends React.Component {
     render() {
         let renderedCards = this.props.faceUp.map((item, index) => {
+            console.log(this.props.selected)
             let isSelected = this.props.selected.includes(index)
             return <Card attributes={item} index={index} isSelected={isSelected}></Card>
         });
@@ -28,9 +29,9 @@ let mapDispatchToProps = function(dispatch, props) {
   
   let mapStateToProps = function(state, props) {
     return {
-      faceUp: state.deck.faceUp,
-      faceDown: state.deck.faceDown,
-      selected: state.deck.selected,
+      faceUp: state.faceUp,
+      faceDown: state.faceDown,
+      selected: state.selected,
     }
   }
   

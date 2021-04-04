@@ -45,9 +45,7 @@ let mapDispatchToProps = function(dispatch, props) {
   }
   //TODO: is this necessary??
   let mapStateToProps = function(state, props) {
-    return {
-      selected: state.deck.selected,
-    }
+    return {}
   }
   
   export default connect(
