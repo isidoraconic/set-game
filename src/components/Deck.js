@@ -2,13 +2,15 @@ import React from 'react';
 import Icon from "./Icon";
 import Card from "./Card";
 import { connect } from 'react-redux';
+import '../style/Deck.css';
 
 class Deck extends React.Component {
     render() {
         let renderedCards = this.props.faceUp.map((item, index) => {
-            return <Card attributes={item} index={index}></Card>
+            let isSelected = this.props.selected.includes(index)
+            return <Card attributes={item} index={index} isSelected={isSelected}></Card>
         });
-
+        
         return (
             <div className="deck"> 
                 {renderedCards}
@@ -26,9 +28,9 @@ let mapDispatchToProps = function(dispatch, props) {
   
   let mapStateToProps = function(state, props) {
     return {
-      faceUp: state.faceUp,
-      faceDown: state.faceDown,
-      selected: state.selected,
+      faceUp: state.deck.faceUp,
+      faceDown: state.deck.faceDown,
+      selected: state.deck.selected,
     }
   }
   

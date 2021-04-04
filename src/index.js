@@ -1,11 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { createStore } from 'redux';
+import { combineReducers, createStore } from 'redux';
 import { Provider } from 'react-redux';
 import App from './App';
 import DeckReducer from './reducers/DeckReducer';
+import GameReducer from './reducers/GameReducer';
 
-const store = createStore(DeckReducer);
+const reducers = combineReducers({game: GameReducer, deck:DeckReducer})
+
+const store = createStore(reducers);
 
 ReactDOM.render(
   <Provider store={store}>

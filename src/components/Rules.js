@@ -4,7 +4,7 @@ export default class Rules extends React.Component {
     render() {
 
         return (
-            <div className="deck"> 
+            <div className="rules"> 
                 Poop
             </div>
         )

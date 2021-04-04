@@ -13,14 +13,23 @@ class Card extends React.Component {
     }
 
     render() {
-        let isSelected = this.props.selected.includes(this.props.index)
+        
         let icons = [];
+
         for(let i = 0; i < this.props.attributes.shapeCount; i++) {
-            icons.push(<Icon type={this.props.attributes.shape} color={this.props.attributes.color} fill={this.props.attributes.shade}></Icon>);
+            
+            //Need to check what kind of "fill" the icon has; if it is solid, need to pass in the same colour as the outline, etc.
+            if(this.props.attributes.shade === "solid") {
+                icons.push(<Icon type={this.props.attributes.shape} color={this.props.attributes.color} fill={this.props.attributes.color}></Icon>);
+            } else {
+                icons.push(<Icon type={this.props.attributes.shape} color={this.props.attributes.color} fill={this.props.attributes.shade}></Icon>);
+            }
+
+
         };
         
         return (
-            <div className="card" onClick={() => this.onclick("SELECT", this.props.index)}>
+            <div className="card" id={this.props.isSelected ? "selected" : "not"} onClick={() => this.onclick("SELECT", this.props.index)}>
                 <div id="icon-container">
                     {icons}
                 </div>
@@ -34,11 +43,10 @@ let mapDispatchToProps = function(dispatch, props) {
         dispatch: dispatch,
     }
   }
-  
+  //TODO: is this necessary??
   let mapStateToProps = function(state, props) {
     return {
-      faceUp: state.faceUp,
-      selected: state.selected,
+      selected: state.deck.selected,
     }
   }
   

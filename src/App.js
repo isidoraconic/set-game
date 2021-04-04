@@ -1,7 +1,8 @@
 import React from 'react';
 import Rules from './components/Rules';
-import Game from './components/Game';
+import GameWrapper from './components/GameWrapper';
 import NavBar from './components/NavBar';
+import Game from './components/Game';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 export default class App extends React.Component {
@@ -16,6 +17,7 @@ export default class App extends React.Component {
         <div>
           <NavBar/>
           <Switch>
+            <Route path="/game-selection" component={GameWrapper}/>
             <Route path="/game" component={Game}/>
             <Route path="/rules" component={Rules}/>
           </Switch>

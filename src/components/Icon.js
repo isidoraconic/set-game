@@ -13,9 +13,9 @@ const iconTypes = {
 const iconStyle = (color, fill) => {return {
     height: "30px",
     width: "30px",
-    strokeWidth: "30",
+    strokeWidth: "45",
     stroke: color,
-    fill: fill
+    fill: fill,
 }}
 
 

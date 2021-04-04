@@ -1,3 +1,21 @@
 .card {
-    border: black 2px;
+    display: flex;
+    justify-content: center;
+    border-style: solid;
+    border-radius: 15px;
+    border-color: gray;
+    margin: 15px;
+    width: 110px;
+}
+
+#selected {
+    border-color: red;
+}
+
+.card:hover {
+    transform: scale(1.15);
+}
+
+#icon-container {
+    margin: 10px 10px 5px 10px;
 }
