@@ -1,0 +1,42 @@
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Source+Sans+Pro:wght@300&display=swap");
+
+.game-container {
+    font-size: 15px;
+    color: #352A3C;
+    border: solid #8E9AAF;
+    border-radius: 5px;
+    background-color: #DEE2FF;
+    margin: 20px;
+    align-content: center;
+    text-align: center;
+}
+
+.counters-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 15px;
+    font-family: 'Source Sans Pro', sans-serif;
+    text-align: center;
+}
+
+.game-container > .button {
+    align-content: center;
+}
+
+.draw-button {
+    font-size: 20px;
+    font-family: 'Playfair Display', serif;
+    background-color: #FFC8DD;
+    padding: 5px 10px 5px 10px;
+    border: solid #8E9AAF;
+    border-radius: 5px;
+}
+
+div.deck {
+    margin: 10px;
+}
+
+button.draw-button:hover {
+    transform: scale(1.15);
+}

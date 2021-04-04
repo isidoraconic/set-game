@@ -1,8 +1,23 @@
+@import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap");
+
 .navbar {
     display: flex;
     justify-content: center;
 }
 
+#navbar-container {
+    border: solid 5px;
+    border-radius: 15px;
+    border-color: #8E9AAF;
+    background-color: #EFD3D7;
+}
+
 .navbar button {
     margin: 10px;
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: 15px;
+    color: #352A3C;
+    border: solid #8E9AAF;
+    border-radius: 5px;
+    background-color: #DEE2FF;
 }

@@ -6,8 +6,11 @@ export default class NavBar extends React.Component {
     render() {
         return (
             <div className="navbar"> 
-                <NavLink to="/game-selection" id="nav-game"><button>Play Game!</button></NavLink>
-                <NavLink to="/rules" id="nav-rules"><button>Rules</button></NavLink>
+                <div id="navbar-container">
+                    <NavLink to="/" id="nav-home"><button>Home</button></NavLink>
+                    <NavLink to="/game-selection" id="nav-game"><button>Play New Game!</button></NavLink>
+                    <NavLink to="/rules" id="nav-rules"><button>Rules</button></NavLink>
+                </div>
             </div>
         )
     }

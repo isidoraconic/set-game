@@ -5,7 +5,10 @@
     border-radius: 15px;
     border-color: gray;
     margin: 15px;
-    width: 110px;
+    width: 160px;
+    height: 70px;
+    background-color: white;
+    box-shadow: 5px 5px #808080;
 }
 
 #selected {
@@ -17,5 +20,6 @@
 }
 
 #icon-container {
-    margin: 10px 10px 5px 10px;
+    margin: 10px 10px 10px 10px;
 }
+

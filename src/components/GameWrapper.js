@@ -1,8 +1,9 @@
 import React from 'react';
-import Game from './Game';
 import MODES from '../actions/GameModeEnum';
 import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
+import '../style/GameWrapper.css';
+
 
 class GameWrapper extends React.Component {
   onclick(gameDifficulty) {
@@ -14,11 +15,17 @@ class GameWrapper extends React.Component {
 
   render() {
       return (
-        <div>
+        <div className="game-mode-container">
+          <h2>
+            Please select a game difficulty from the options below to start playing.
+          </h2>
+          <div id="game-mode-info">
+            See the 'Rules' page for more information on how to play the game and differences between difficulty levels.
+          </div>
           <div className="game-modes"> 
-            <NavLink to="/game" id="nav-game"><button onClick={()=>this.onclick(MODES.EASY)}> Easy </button></NavLink>
-            <NavLink to="/game" id="nav-game"><button onClick={()=>this.onclick(MODES.MEDIUM)}> Medium </button></NavLink>
-            <NavLink to="/game" id="nav-game"><button onClick={()=>this.onclick(MODES.HARD)}> Hard </button> </NavLink>
+            <NavLink to="/game" className="nav-game" id="easy"><button onClick={()=>this.onclick(MODES.EASY)}> Easy </button></NavLink>
+            <NavLink to="/game" className="nav-game" id="medium"><button onClick={()=>this.onclick(MODES.MEDIUM)}> Medium </button></NavLink>
+            <NavLink to="/game" className="nav-game" id="hard"><button onClick={()=>this.onclick(MODES.HARD)}> Hard </button> </NavLink>
           </div>
         </div> 
       )

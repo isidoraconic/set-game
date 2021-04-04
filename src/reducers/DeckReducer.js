@@ -1,8 +1,8 @@
 import MODES from '../actions/GameModeEnum';
 
-const cardColors = ["#EB96AA", "#90CDC3", "#7b5c00"];
+const cardColors = ["#EB96AA", "#90CDC3", "#cfdd8e"];
 const cardShapes = ["flower", "heart", "star"];
-const cardShades = ["white", "solid", "black"];
+const cardShades = ["white", "solid", "opaque"];
 const cardShapeCount = [1, 2, 3];
 
 //Helper function for the isSet function, which checks if 3 attributes are all the same or all different
@@ -165,13 +165,13 @@ export default function DeckReducer (
                             faceDown = result[0]
                             faceUp = result[1]
                         }
-                        while(faceUp < 12 && faceDown >= 3) {
-                            result = getNewCards(faceDown, faceUp, 3)
-                            faceDown = result[0]
-                            faceUp = result[1]
-                        }
-                        state.numValidSets++;
                     }
+                    while(faceUp < 12 && faceDown >= 3) {
+                        result = getNewCards(faceDown, faceUp, 3)
+                        faceDown = result[0]
+                        faceUp = result[1]
+                    }
+                    state.numValidSets++;
                 } else {
                     alert("Not a valid set.")
                 }

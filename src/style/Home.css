@@ -1,0 +1,25 @@
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Source+Sans+Pro:wght@300&display=swap");
+
+h1 {
+    font-family: 'Playfair Display', serif;
+    text-align: center;
+}
+
+#home-text {
+    font-family: 'Source Sans Pro', sans-serif;
+    text-align: center;
+    margin: 20px 10px 30px 10px;
+    font-size: 20px;
+}
+
+.home {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    border: dashed 5px;
+    border-radius: 15px;
+    border-color: #8E9AAF;
+    margin: 30px;
+    background-color: #EFD3D7;
+    color: #352A3C;
+}
