@@ -3,7 +3,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import '../style/Card.css';
 
-const shades = ["rbga(235, 150, 170, 0.4)", "rgba(144, 205, 195, 0.4)", "rbga(207, 221, 142, 0.4)"];
+const shades = ["rbga(235,150,170,0.4)", "rgba(144,205,195,0.4)", "rbga(207,221,142,0.4)"];
 
 class Card extends React.Component {
 
@@ -25,11 +25,11 @@ class Card extends React.Component {
                 icons.push(<Icon type={this.props.attributes.shape} color={this.props.attributes.color} fill={this.props.attributes.color}></Icon>);
             } else if(this.props.attributes.shade === "opaque") {
                 if(this.props.attributes.color === "#EB96AA") {
-                    icons.push(<Icon type={this.props.attributes.shape} color={this.props.attributes.color} fill={shades[0]}></Icon>);
+                    icons.push(<Icon type={this.props.attributes.shape} color={this.props.attributes.color} fill="#F8DDE3"></Icon>);
                 } else if(this.props.attributes.color === "#90CDC3") {
                     icons.push(<Icon type={this.props.attributes.shape} color={this.props.attributes.color} fill={shades[1]}></Icon>);
                 } else {
-                    icons.push(<Icon type={this.props.attributes.shape} color={this.props.attributes.color} fill={shades[2]}></Icon>);
+                    icons.push(<Icon type={this.props.attributes.shape} color={this.props.attributes.color} fill="#EBF1D0"></Icon>);
                 }
             } else {
                 icons.push(<Icon type={this.props.attributes.shape} color={this.props.attributes.color} fill={this.props.attributes.shade}></Icon>);

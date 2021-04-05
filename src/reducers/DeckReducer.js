@@ -8,15 +8,15 @@ const cardShapeCount = [1, 2, 3];
 //Helper function for the isSet function, which checks if 3 attributes are all the same or all different
 //We then do this for all 4 attributes in a medium and hard level, and only 3 out of the 4 attributes in easy
 function validAttributeCondition(firstAttr, secondAttr, thirdAttr) {
-    return (firstAttr === secondAttr && secondAttr === thirdAttr) || (firstAttr !== secondAttr && firstAttr !== thirdAttr && secondAttr !== thirdAttr);
+    return (firstAttr === secondAttr && secondAttr === thirdAttr && thirdAttr === firstAttr) || (firstAttr !== secondAttr && firstAttr !== thirdAttr && secondAttr !== thirdAttr);
 }
 
 //Function to check if three cards make a set
 function isSet(cardOne, cardTwo, cardThree) {
-    return validAttributeCondition(cardOne.shape, cardTwo.shape, cardThree.shape) && 
-    validAttributeCondition(cardOne.color, cardTwo.color, cardThree.color) &&
-    validAttributeCondition(cardOne.shade, cardTwo.shade, cardThree.shade) && 
-    validAttributeCondition(cardOne.shapeCount, cardTwo.shapeCount, cardThree.shapeCount)
+    return validAttributeCondition(cardOne.shape, cardTwo.shape, cardThree.shape) &&
+        validAttributeCondition(cardOne.color, cardTwo.color, cardThree.color) &&
+        validAttributeCondition(cardOne.shade, cardTwo.shade, cardThree.shade) &&
+        validAttributeCondition(cardOne.shapeCount, cardTwo.shapeCount, cardThree.shapeCount)
 }
 
 function findSet(currentCards) {
@@ -24,12 +24,9 @@ function findSet(currentCards) {
         for (let j = i + 1; j < currentCards.length; j++) {
             for (let k = j + 1; k < currentCards.length; k++) {
                 if (isSet(currentCards[i], currentCards[j], currentCards[k])) {
-                    let first_card = currentCards[i]
-                    let second_card = currentCards[j]
-                    let third_card = currentCards[k]
                     return true
                 }
-                
+
             }
         }
     }
@@ -70,9 +67,9 @@ function getNewCards(faceDown, faceUp, numCards) {
 function generateDeck(difficulty) {
     let deck = [];
 
-    for(let i = 0; i < 3; i++) {
-        for(let j = 0; j < 3; j++) {
-            for(let h = 0; h < 3; h++) {
+    for (let i = 0; i < 3; i++) {
+        for (let j = 0; j < 3; j++) {
+            for (let h = 0; h < 3; h++) {
                 if (difficulty === MODES.EASY) {
                     let card = {
                         color: cardColors[i],
@@ -82,7 +79,7 @@ function generateDeck(difficulty) {
                     }
                     deck.push(card);
                 } else {
-                    for(let k = 0; k < 3; k++) {
+                    for (let k = 0; k < 3; k++) {
                         let card = {
                             color: cardColors[i],
                             shape: cardShapes[j],
@@ -99,99 +96,138 @@ function generateDeck(difficulty) {
     return deck;
 }
 
-export default function DeckReducer (
+export default function DeckReducer(
     state = {
         faceUp: [],
         faceDown: [],
         selected: [],
         numValidSets: 0,
         gameMode: null,
+        gameOver: false,
     }, action) {
-        // This is the start of the game.
-        if (action.type === "START GAME") {
-            let [faceDown, faceUp]= getNewCards(generateDeck(action.difficulty), [], 12)
-            if (action.difficulty === MODES.MEDIUM) {
-                while(!findSet(faceUp)) {
-                    [faceDown, faceUp] = getNewCards(faceDown, faceUp, 3)
-                }
-            }
-            return {
-                faceUp: faceUp,
-                faceDown: faceDown,
-                selected: [],
-                numValidSets: 0,
-                gameMode: action.difficulty
+    // This is the start of the game.
+    if (action.type === "START GAME") {
+        let [faceDown, faceUp] = getNewCards(generateDeck(action.difficulty), [], 12)
+        if (action.difficulty === MODES.MEDIUM) {
+            while (!findSet(faceUp)) {
+                [faceDown, faceUp] = getNewCards(faceDown, faceUp, 3)
             }
         }
-        if(action.type === "DRAW 3 CARDS") {
-            let [faceDownTemp, faceUpTemp] = getNewCards(state.faceDown, state.faceUp, 3)
+        return {
+            faceUp: faceUp,
+            faceDown: faceDown,
+            selected: [],
+            numValidSets: 0,
+            gameMode: action.difficulty,
+            gameOver: false,
+        }
+    }
+    if (action.type === "DRAW 3 CARDS") {
+        if ((state.faceDown.length === 0) && (findSet(state.faceUp) === false)) {
             return {
-                faceUp: faceUpTemp,
-                faceDown: faceDownTemp,
+                faceUp: state.faceUp,
+                faceDown: state.faceDown,
                 selected: state.selected,
                 numValidSets: state.numValidSets,
-                gameMode: state.gameMode
+                gameMode: state.gameMode,
+                gameOver: true,
             }
-
         }
-        if (action.type === "SELECT") {
-            let newSelected = []
-            if (state.selected.includes(action.index)) {
-                newSelected = [...state.selected]
-                let elementIndex = state.selected.indexOf(action.index)
-                newSelected.splice(elementIndex, 1)
-                return {
-                    faceUp: state.faceUp,
-                    faceDown: state.faceDown,
-                    selected: newSelected,
-                    numValidSets: state.numValidSets,
-                    gameMode: state.gameMode
-                }
+
+        let [faceDownTemp, faceUpTemp] = getNewCards(state.faceDown, state.faceUp, 3)
+        findSet(faceUpTemp)
+        return {
+            faceUp: faceUpTemp,
+            faceDown: faceDownTemp,
+            selected: state.selected,
+            numValidSets: state.numValidSets,
+            gameMode: state.gameMode,
+            gameOver: false,
+        }
+
+    }
+    if (action.type === "SELECT") {
+        let newSelected = []
+        if (state.selected.includes(action.index)) {
+            newSelected = [...state.selected]
+            let elementIndex = state.selected.indexOf(action.index)
+            newSelected.splice(elementIndex, 1)
+            return {
+                faceUp: state.faceUp,
+                faceDown: state.faceDown,
+                selected: newSelected,
+                numValidSets: state.numValidSets,
+                gameMode: state.gameMode,
+                gameOver: false,
             }
-            if (state.selected.length == 2) {
-                state.selected.push(action.index);
-                let validSet = isSet(state.faceUp[action.index], state.faceUp[state.selected[0]], state.faceUp[state.selected[1]]);
-                let faceUp = [...state.faceUp]
-                let faceDown = [...state.faceDown]
-                if (validSet) {
-                    alert("Congrats, you created a valid set.")
-                    faceUp = removeIndices(state.selected, faceUp);
-                    let result = getNewCards(faceDown, faceUp, 3);
-                    faceDown = result[0]
-                    faceUp = result[1]
-                    if (state.gameMode === MODES.MEDIUM) {
-                        while(!findSet(faceUp)) {
-                            result = getNewCards(faceDown, faceUp, 3)
-                            faceDown = result[0]
-                            faceUp = result[1]
-                        }
-                    }
-                    while(faceUp < 12 && faceDown >= 3) {
+        }
+        if (state.selected.length == 2) {
+            state.selected.push(action.index);
+            let validSet = isSet(state.faceUp[action.index], state.faceUp[state.selected[0]], state.faceUp[state.selected[1]]);
+            let faceUp = [...state.faceUp]
+            let faceDown = [...state.faceDown]
+            if (validSet) {
+                alert("Congrats, you created a valid set.")
+                faceUp = removeIndices(state.selected, faceUp);
+                let result = getNewCards(faceDown, faceUp, 3);
+                faceDown = result[0]
+                faceUp = result[1]
+                if (state.gameMode === MODES.MEDIUM) {
+                    while (!findSet(faceUp) && faceDown.length > 2) {
                         result = getNewCards(faceDown, faceUp, 3)
                         faceDown = result[0]
                         faceUp = result[1]
                     }
-                    state.numValidSets++;
-                } else {
-                    alert("Not a valid set.")
                 }
+                while (faceUp < 12 && faceDown >= 3) {
+                    result = getNewCards(faceDown, faceUp, 3)
+                    faceDown = result[0]
+                    faceUp = result[1]
+                }
+                state.numValidSets++;
+            } else {
+                alert("Not a valid set.")
+            }
+
+            //Need to check if there are any more sets to be made if there are no cards left to flip
+            if (faceDown.length === 0 && (findSet(faceUp) === false)) {
                 return {
                     faceUp: faceUp,
                     faceDown: faceDown,
                     selected: [],
                     numValidSets: state.numValidSets,
-                    gameMode: state.gameMode
+                    gameMode: state.gameMode,
+                    gameOver: true,
                 }
             }
-            else {
-                return {
-                    faceUp: state.faceUp,
-                    faceDown: state.faceDown,
-                    selected: state.selected.concat(action.index),
-                    numValidSets: state.numValidSets,
-                    gameMode: state.gameMode
-                }
+
+            return {
+                faceUp: faceUp,
+                faceDown: faceDown,
+                selected: [],
+                numValidSets: state.numValidSets,
+                gameMode: state.gameMode,
+                gameOver: false,
+            }
+        } else if ((state.faceDown.length === 0) && (findSet(state.faceUp) === false)) {
+            return {
+                faceUp: state.faceUp,
+                faceDown: state.faceDown,
+                selected: state.selected.concat(action.index),
+                numValidSets: state.numValidSets,
+                gameMode: state.gameMode,
+                gameOver: true,
+            }
+        } else {
+            return {
+                faceUp: state.faceUp,
+                faceDown: state.faceDown,
+                selected: state.selected.concat(action.index),
+                numValidSets: state.numValidSets,
+                gameMode: state.gameMode,
+                gameOver: false,
             }
         }
+    }
     return state;
 }

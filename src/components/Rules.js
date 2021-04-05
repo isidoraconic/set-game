@@ -1,5 +1,7 @@
 import React from 'react';
 import '../style/Rules.css';
+import ValidSet1 from '../images/valid-set1.png';
+import ValidSet2 from '../images/valid-set2.png';
 
 export default class Rules extends React.Component {
     render() {
@@ -47,6 +49,11 @@ export default class Rules extends React.Component {
                         made from the 12 displayed cards. A hard game is won when al 27 SETs have been found.
                         </div>
                     </div>
+                </div>
+                <div className="photo-container">
+                    <h4>Below are examples of valid sets: </h4>
+                    <img src={ValidSet1} alt="Example 1 of a valid SET."/>
+                    <img src={ValidSet2} alt="Example 2 of a valid SET."/>
                 </div>
             </div>
         )

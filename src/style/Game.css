@@ -40,3 +40,15 @@ div.deck {
 button.draw-button:hover {
     transform: scale(1.15);
 }
+
+.win-message {
+    font-family: 'Playfair Display', serif;
+    font-size: 30px;
+    color: #352A3C;
+    text-align: center;
+    margin: 40px 20px 20px 20px;
+    background-color: #c5d86e;
+    padding: 40px;
+    border: dashed 10px #e6b2e3;
+    border-radius: 5px;
+}

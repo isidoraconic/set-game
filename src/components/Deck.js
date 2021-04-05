@@ -7,7 +7,6 @@ import '../style/Deck.css';
 class Deck extends React.Component {
     render() {
         let renderedCards = this.props.faceUp.map((item, index) => {
-            console.log(this.props.selected)
             let isSelected = this.props.selected.includes(index)
             return <Card attributes={item} index={index} isSelected={isSelected}></Card>
         });

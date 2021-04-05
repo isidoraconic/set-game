@@ -20,6 +20,7 @@ class Game extends React.Component {
     let currentHTML = (
     <div className="game-container">
       <h1 className="level">Playing {this.props.gameMode} level game!</h1>
+      <div>Is the game over? {this.props.gameOver}</div>
       <button className="draw-button" onClick={() => this.onclick("DRAW 3 CARDS")}>Draw Three Cards</button>
       <div className="counters-container">
         <div className="set-counter">Number of valid sets: {this.props.numValidSets}</div>
@@ -28,7 +29,7 @@ class Game extends React.Component {
       <Deck></Deck>
     </div>
     )
-    if (this.props.faceDown === 0 && this.props.numValidSets > 0) {
+    if (this.props.gameOver) {
       currentHTML = <div className="win-message"> 
         Congrats you won the game! Select from the menu options to play another game or
         go back home. :) 
@@ -55,7 +56,8 @@ let mapStateToProps = function(state, props) {
         faceUp: state.faceUp,
         faceDown: state.faceDown,
         selected: state.selected,
-        numValidSets: state.numValidSets
+        numValidSets: state.numValidSets,
+        gameOver: state.gameOver,
     }
 }
 
